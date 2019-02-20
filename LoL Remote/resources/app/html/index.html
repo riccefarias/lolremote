@@ -1,0 +1,271 @@
+<html ng-app="LoL">
+<head>
+	<meta charset="utf-8" />
+	<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+			box-sizing: border-box;
+		}
+	
+		#mainWindow{
+			background: url('img/backdrop-magic.png') no-repeat;
+			background-size: 100%;
+		}
+	
+		.champion{
+			width: 250px;
+			height: 80px;
+			margin-bottom: 7px;
+			overflow: hidden;
+			color: black !important;
+		}
+		
+		.champBan{
+			width: 90px;
+			height: 90px;
+			float: left;
+			margin-right: 2px;
+		}
+		
+		.leftSide .line{
+			background: url('img/champ-select/linework-horiz.png') no-repeat;
+			background-size: 100%;
+			background-position: center bottom;
+			width: 500px;
+			height: 10px;
+			margin-left: 10px;
+		}
+		
+		
+		.rightSide .line{
+			background: url('img/champ-select/linework-horiz.png') no-repeat;
+			background-size: 100%;
+			background-position: center bottom;
+			width: 500px;
+			height: 10px;
+			margin-left: 10px; -webkit-transform: scaleX(-1);
+		}
+		
+		.champ{
+			width: 500px;
+			height: 60px;
+			border-left: transparent 6px solid;
+			padding-left: 5px;
+			margin-left: 1px;
+			margin-bottom: 2px;
+		}
+		
+		.champContent{
+			height: 60px;
+		}
+		
+		.playerCircle{
+			width: 55px;
+			height: 55px;
+			background: url('img/champ-select/player-object-m.png') no-repeat;
+			background-size: 100%;
+			float: left;
+		}
+		
+		.playerCircle{
+			width: 55px;
+			height: 55px;
+			background: url('img/champ-select/player-object-m.png') no-repeat;
+			background-size: 100%;
+		}
+		
+		.leftSide .playerCircleOut{
+			border-radius: 55px;
+			overflow: hidden;
+			margin: 2.5px;
+			width: 55px;
+			height: 55px;
+			background: #1e282d;
+			background-size: 100%;
+			float: left;
+		}
+		
+		.rightSide .playerCircleOut{
+			border-radius: 55px;
+			overflow: hidden;
+			margin: 2.5px;
+			width: 55px;
+			height: 55px;
+			background: #1e282d;
+			background-size: 100%;
+			float: right;
+		}
+		
+		.leftSide .playerData{
+			margin-left: 60px;
+			text-align: left;
+			padding: 12px;
+		}
+		
+		.rightSide .playerData{
+			color: white;
+			margin-right: 60px;
+			text-align: right;
+			padding: 12px;
+		}
+	</style>
+	<script src="angular.min.js"></script>
+	<script src="engine.js"></script>
+
+</head>
+<body ng-controller="1GB" >
+	<div  id="mainWindow" style="width: 1280px; height: 720px; position: relative;">
+		<div ng-if="onScene==0" style="color: white; font-size: 40px; text-align: center;line-height: 720px">
+			ENTRE NA FILA PELO CLIENTE DO LEAGUE OF LEGENDS
+		</div>
+		<div ng-if="onScene==1" style="color: white; font-size: 40px; text-align: center;">
+			<div style="padding-top: 100px;">VOCÊ ESTÁ NA FILA</div>
+			<div style="padding-top: 100px;">{{timeInQueue}}</div>
+		</div>
+		<div ng-if="onScene==2" style="color: white; font-size: 40px; text-align: center;">
+			<div style="position: absolute; left: calc(50% - 265px);top: calc(50% - 265px);width: 530px; height: 530px;">
+				<div style="position: relative;">
+				
+					<div style="position: absolute; left: 60px;top: 60px;background: url('img/ready-check/default-background.png');width: 410px; height: 410px;">
+			
+					</div>
+					<div style="position: absolute; left: -12px;top: -12px;width: 530px; height: 530px;">
+						<video src="img/ready-check/timer-countdown.webm" autoplay=true>
+					</div> 
+				
+					<div style="position: absolute; left: 0px;top: 0px;background: url('img/ready-check/ready-check-main-frame.png');width: 530px; height: 530px;">
+			
+					</div>
+					
+					<div ng-click="readyCheck('accept')" style="position: absolute; left: 158px;top: 430px;background: url('img/ready-check/button-accept-default.png');width: 212px; height: 70px;font-size: 15px;line-height: 65px;">
+						ACEITAR
+					</div>
+					<div ng-click="readyCheck('decline')" style="position: absolute; left: 225px;border: #09c2b5 1px solid;top: 510px;background: #1e252a;width: 83px; height: 30px;font-size: 12px;line-height: 30px;">
+						RECUSAR
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div ng-if="onScene==3" style="color: white; font-size: 40px; text-align: center;position: relative;">
+			<div style="position: absolute;background: url('img/champ-select/map-north.png');width: 100%; height: 100%;width: 1280px; height: 720px; "></div>
+			<div style="position: absolute;background: url('img/champ-select/skin-splash-darken.png');width: 100%; height: 100%;width: 1280px; height: 720px;opacity: 0.6 "></div>
+			<div style="position: absolute;background: url('img/champ-select/top-darkening.png');width: 100%; height: 100%;width: 1280px; height: 100px;"></div>
+			<div style="top: 20px;position: absolute;background: url('img/champ-select/linework-top.png') no-repeat; background-position: 120px -270px;background-size: 1000px;width: 100%; height: 100%;width: 1280px; height: 130px;"></div>
+			
+			
+			<div class="leftSide" style="position: absolute; left: 0px; top: 100px;">
+			
+				<div class="line"></div>
+				<div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+				<div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div><div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div><div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div><div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+				
+			</div>
+		</div>
+		
+		<div class="rightSide" style="position: absolute; right: 0px; top: 100px;">
+			
+				<div class="line"></div>
+				<div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+				<div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div><div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div><div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div><div class="champ">
+					<div class="champContent">
+						<div class="playerCircleOut"><div class="playerCircle"></div></div>
+						<div class="playerData">
+							<div style="font-size: 13px;font-weight: bold;">TOPO</div>
+							<div style="font-size: 12px;margin-top: 5px;">1CarinhaQualquer</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+				
+				
+			</div>
+		</div>
+	
+	
+	</div>
+</body>
+</html>

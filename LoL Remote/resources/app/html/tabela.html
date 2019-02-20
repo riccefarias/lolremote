@@ -1,0 +1,124 @@
+<html ng-app="LoL">
+	<head>
+	
+	<script src="angular.min.js"></script>
+	<script src="engineTabela.js"></script>
+		<meta charset="utf-8" />
+	
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+		
+			#virtual{
+				width: 1280px;
+				height: 720px;
+				position: relative;
+			}
+			
+			#group1{
+				position: absolute;
+				right: 75px;
+				top: 100px;
+				background: rgba(0,0,0,0.6);
+				padding: 20px;
+			}
+			
+			
+			.gtitle{
+				
+				margin-bottom: 10px;
+				font-size: 35px;
+				color: white;
+				letter-spacing: 2px;
+				font-family: 'BigNoodleTitling';
+				text-align: center;
+			}
+			
+			#group2{
+				position: absolute;
+				right: 25px;
+				top: 150px;
+			}
+			
+			.teamx{
+				width: 617px;
+				height: 30px;
+				margin-bottom: 10px;
+				font-size: 20px;
+				letter-spacing: 2px;
+				font-family: 'BigNoodleTitling';
+				overflow: hidden;	
+			}
+			
+			.team{
+				background: url('img/line.png') no-repeat;
+				background-position: -40px center;
+				width: 617px;
+				height: 45px;
+				margin-bottom: 10px;
+				font-size: 25px;
+				letter-spacing: 2px;
+				font-family: 'BigNoodleTitling';
+			}
+			
+			.tpos{
+				float: left;
+				color: white;
+				width: 50px;
+				text-align: center;
+				line-height: 45px;
+			}
+			
+			.tname{
+				margin-left: 15px;
+				float: left;
+				color: white;
+				width: calc(100% - 195px);
+				line-height: 45px;
+			}
+			
+			.tscore{
+				float: left;
+				color: white;
+				width: 50px;
+				text-align: center;
+				line-height: 44px;
+				background: rgba(251,253,0,0.4);
+			}
+			
+			.tcol{
+				float: left;
+				color: white;
+				width: 40px;
+				text-align: center;
+				line-height: 45px;
+				background: rgba(0,0,0,0.4);
+			}
+		</style>
+	</head>
+	<body ng-controller="1GB">
+		<div id="virtual">
+			<div id="group1">
+				<div class="gtitle">{{group.title}}</div>
+			
+				<div class="teamx">
+					<div class="tpos">#</div>
+					<div class="tname">Equipe</div>
+					<div class="tscore" style="background: transparent;">PTS</div>
+					<div class="tcol" style="background: transparent;">J</div>
+					<div class="tcol" style="background: transparent;">V</div>
+				</div>
+				<div class="team" ng-repeat="(key,team) in group.teams | orderBy: '-score'">
+					<div class="tpos">{{key+1}}º</div>
+					<div class="tname">{{team.name}}</div>
+					<div class="tscore">{{team.score}}</div>
+					<div class="tcol">{{team.games}}</div>
+					<div class="tcol">{{team.wins}}</div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
